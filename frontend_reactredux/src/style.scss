@@ -1,0 +1,68 @@
+
+#app {
+
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.searcher {
+    //width: 400px;
+}
+
+#finder {
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+#loadFile {
+
+    margin: 10px;
+
+}
+
+#submitBtn {
+
+    margin-top: 10px;
+
+}
+
+.videoElement {
+
+    border: 2px solid white;
+    background-color: aliceblue;
+
+}
+
+.leftColumn {
+
+    width: 130px;
+
+}
+
+.addForm {
+
+    margin: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px;
+    background-color: lightgoldenrodyellow;
+
+}
+
+ul {
+    width: 320px;
+    padding: 0;
+    margin: 0;
+
+}
+
+.show {
+
+    display: block;
+
+}
