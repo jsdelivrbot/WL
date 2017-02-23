@@ -10,11 +10,11 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//app.use(function(req, res, next) {
-//  res.header("Access-Control-Allow-Origin", "*");
-//  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//  next();
-//});
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -28,6 +28,10 @@ app.get('/', function (req, res) {
 });
 
 app.get('/films', filmsController.all);
+
+app.get('/films/next', filmsController.next);
+
+app.get('/films/reset', filmsController.reset);
 
 app.get('/films/:id', filmsController.findById);
 

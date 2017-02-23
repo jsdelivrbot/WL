@@ -2,18 +2,21 @@ var ObjectID = require('mongodb').ObjectID;
 var db = require('../db');
 
 exports.all = function (cb) {
+	
     db.get().collection('films').find().toArray(function (err, docs) {
         cb(err, docs);
     })
 };
 
 exports.findById = function (id, cb) {
+	
     db.get().collection('films').findOne({_id: ObjectID(id)}, function (err, doc) {
         cb(err, doc);
     });
 };
 
 exports.findByTitle = function (titleName, cb) {
+	
     db.get().collection('films').find().toArray(function (err, docs) {
         var filtered = docs.filter(function (value) {
             return value['Title'].toLowerCase().indexOf(String(titleName)) !== - 1;
@@ -45,15 +48,15 @@ exports.create = function (film, cb) {
 };
 
 exports.createBase = function (film, cb) {
-	//arrFilms.forEach((film) => {
+	
 		db.get().collection('films').insert(film, function (err, result) {
 			cb(err, result);
 		});
-	//});	
 
 };
 
 exports.update = function (id, newData, cb) {
+	
     db.get().collection('films').updateOne(
         { _id: ObjectID(id) },
         newData,
@@ -64,6 +67,7 @@ exports.update = function (id, newData, cb) {
 };
 
 exports.delete = function (id, cb) {
+	
     db.get().collection('films').deleteOne(
         { _id: ObjectID(id) },
         function (err, result) {

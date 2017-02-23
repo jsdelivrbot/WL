@@ -10,12 +10,46 @@ exports.all = function (req, res) {
     })
 };
 
+var start = 0;
+var end = 1;
+
+exports.next = function (req, res) {
+    Films.all(function (err, docs) {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(500);
+        }
+        
+		if (docs.length < end) {
+			return
+		} else {
+			res.send(docs.slice(start, end));
+			start = end;
+			end += 1;
+		}
+    })
+};
+
+exports.reset = function (req, res) {
+	
+    Films.all(function (err, docs) {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(500);
+        }
+		start = 0;
+		end = 1;
+    })
+};
+
 exports.findById = function (req, res) {
+	
     Films.findById(req.params.id, function (err, doc) {
         if (err) {
             console.log(err);
             return res.sendStatus(500);
         }
+		console.log(doc)
         res.send(doc);
     })
 };
@@ -43,11 +77,12 @@ exports.findByStar = function (req, res) {
 };
 
 exports.create = function (req, res) {
-    var film = {
-        "Title": req.body['Title'],
-        "Release Year": req.body['Release Year'],
-        'Format': req.body['Format'],
-        'Stars': req.body['Stars']
+	
+	var film = {
+        "Title": req.body.title,
+        "Release Year": req.body.releaseYear,
+        'Format': req.body.format,
+        'Stars': req.body.stars
     };
 
     Films.create(film, function (err, result) {
@@ -82,9 +117,16 @@ exports.createBase = function (req, res) {
 	
 };
 
-
 exports.update = function (req, res) {
-    Films.update(req.params.id, { name: req.body.name }, function (err, result) {
+	
+	var filmUpdate = {
+			"Title": req.body.titleValue,
+			"Release Year": req.body.releaseYearValue,
+			"Format": req.body.formatValue,
+			"Stars": req.body.starsValue
+    	};
+
+    Films.update(req.params.id, filmUpdate , function (err, result) {
         if (err) {
             console.log(err);
             return res.sendStatus(500);
@@ -94,7 +136,6 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-	console.log(req.params.id);
     Films.delete(req.params.id, function (err, result) {
         if (err) {
             console.log(err);
