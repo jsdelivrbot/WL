@@ -50,7 +50,17 @@ class PostIndex extends Component {
 
         if (this.props.posts.length === 0) {
             console.log(this.props.posts);
-            return <div>Please add new post</div>
+
+            return (
+                <div>
+                    <div className="text-xs-right">
+                        <Link to="/films/new" className="btn btn-primary">
+                            Add Post
+                        </Link>
+                    </div>
+                    <div>Please add new post</div>
+                </div>
+                )
         }
 
         return (
